@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>reproducing.html</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+
+</head>
+
+<body>
+
+<h1>Requirements</h1>
+
+<p>Install git and python 3.6 on your machine.
+Also, you will need to install the following libraries:
+      - gfortran
+      - libblas-dev
+      - liblapack-dev</p>
+
+<h1>Getting the code</h1>
+
+<p>To get the latest release of GAMTL run:
+<code>
+git clone https://github.com/shgo/gamtl.git
+cd gamtl/
+</code></p>
+
+<h1>Preparing the environment</h1>
+
+<p>Create the python environment:
+<code>
+python3.6 -m venv gamtl_env
+</code>
+Using an isolated environment has the advantage of not messing with your python OS installation.
+When it is done, activate the environment with:
+<code>
+source gamtl_env/bin/activate
+</code></p>
+
+<p>Now we will install all python dependencies for GAMTL, that are listed on the <code>requirements.txt</code> file.
+The following command will install everything for you:
+<code>
+python -m pip install -r requirements.txt
+</code></p>
+
+<p>To test if your environment is properly set up, run:
+<code>
+python test_environment.py
+</code></p>
+
+<p>This will create an artificial dataset and run some methods a few times with minimal configuration.
+You should see no error by the end of the process.</p>
+
+<h1>Reproducing experiments on Artificial Dataset</h1>
+
+<p>To reproduce the experiments on &lsquo;Art1&rsquo; dataset, run:</p>
+
+<p><code>
+python exp_var_m_art.py
+</code></p>
+
+</body>
+</html>

@@ -38,7 +38,7 @@ class LassoRegression(MethodRegression):
 
     Reference:
         Tibshirani, R. (1996). Regression shrinkage and selection via the
-        lasso. J. Royal. Statist. Soc B., Vol. 58, No. 1, pages 267-288). 
+        lasso. J. Royal. Statist. Soc B., Vol. 58, No. 1, pages 267-288).
     """
     def __init__(self, name='Lasso', label='lasso', normalize=False, bias=False, positive=False):
         super().__init__(name, label, normalize, bias)
@@ -135,7 +135,7 @@ class LassoClassification(MethodClassification):
 
     Reference:
         Tibshirani, R. (1996). Regression shrinkage and selection via the
-        lasso. J. Royal. Statist. Soc B., Vol. 58, No. 1, pages 267-288). 
+        lasso. J. Royal. Statist. Soc B., Vol. 58, No. 1, pages 267-288).
     """
     def __init__(self, name='Lasso', label='lasso', normalize=False, bias=False, positive=False):
         super().__init__(name, label, normalize, bias)
@@ -245,7 +245,7 @@ class GroupLassoRegression(MethodRegression):
         the Latent Group Lasso approach. CoRR, abs/1110.0413.
     """
     def __init__(self, name='GroupLasso', label='glasso',
-            normalize=False, bias=False, groups=None):
+                 normalize=False, bias=False, groups=None):
         super().__init__(name, label, normalize, bias)
         assert groups is not None
         assert groups.shape[0] == 3
@@ -431,7 +431,7 @@ class GroupLassoClassification(MethodClassification):
         the Latent Group Lasso approach. CoRR, abs/1110.0413.
     """
     def __init__(self, name='GroupLasso', label='glasso', normalize=False,
-            bias=False, groups=None, threshold=0.5):
+                 bias=False, groups=None, threshold=0.5):
         super().__init__(name, label, normalize, bias)
         self.glm = 'Binomial'
         self.W = None

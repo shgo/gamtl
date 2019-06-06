@@ -10,4 +10,4 @@ addons:
 python:
   - 3.6
 
-script: nosetests
+script: ./test_environment.py

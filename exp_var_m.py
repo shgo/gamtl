@@ -7,7 +7,7 @@ dos scripts que a usam.
 from codes.experiments import ExperimentVarParam
 from codes.hyper_params import CrossValidation
 def exp_base(dataset, filename, vals, strategies, hp_metric, hp_bb, metrics,
-             task_metrics):
+             task_metrics, runs, n_jobs=-1):
     """
         Args:
             dataset (codes.design.RealDatasetMTL): dataset to run experiment.
@@ -18,9 +18,9 @@ def exp_base(dataset, filename, vals, strategies, hp_metric, hp_bb, metrics,
     exp.hp_metric = hp_metric
     exp.hp_bb = hp_bb
     exp.dataset = dataset
-    exp.runs = 2#30
+    exp.runs = runs
     exp.metrics = metrics
     exp.task_metrics = task_metrics
     exp.hyper_parameterization = CrossValidation
     exp.strategies = strategies
-    exp.execute(n_jobs=-1)
+    exp.execute(n_jobs=n_jobs)
