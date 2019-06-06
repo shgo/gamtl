@@ -1,8 +1,8 @@
 language: python
 before_install:
-  - sudo add-apt-repository ppa:jmaye/ethz
+  - sudo add-apt-repository ppa:jmaye/ethz -y
   - sudo apt-get update -q
-  - sudo apt-get install libsuitesparse-dev
+  - sudo apt-get install libsuitesparse-dev -y
 addons:
   apt:
     packages: &common_packages
