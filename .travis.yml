@@ -1,14 +1,14 @@
 language: python
-
+before_install:
+  - sudo add-apt-repository ppa:jmaye/ethz
+  - sudo apt-get update -q
+  - sudo apt-get install libsuitesparse-dev
 addons:
   apt:
     packages: &common_packages
       - gfortran
       - libblas-dev
       - liblapack-dev
-      - suitesparse
-
 python:
   - 3.6
-
 script: ./test_environment.py
