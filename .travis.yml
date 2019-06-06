@@ -9,3 +9,5 @@ addons:
 
 python:
   - 3.6
+
+script: nosetests
