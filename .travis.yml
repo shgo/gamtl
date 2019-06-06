@@ -6,6 +6,7 @@ addons:
       - gfortran
       - libblas-dev
       - liblapack-dev
+      - suitesparse
 
 python:
   - 3.6
