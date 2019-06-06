@@ -4,7 +4,9 @@
 # GAMTL
 
 **Paper accepted for the 28th International Joint Conference on Artificial Intelligence - IJCAI 2019**
+
 Title: **Group LASSO with Asymmetric Structure Estimation for Multi-Task Learning**
+
 Authors: *Saullo Oliveira, André Gonçalves, Fernando Von Zuben**.
 
 Abstract:
@@ -20,7 +22,9 @@ Abstract:
 For replication instructions see [Reproducing](reproducing.md).
 
 Date: 06/2019
+
 License: GNU General Public License v3.0
 
-Acknowledgements
+## Acknowledgements
+
 We acknowledge the grants \#141881\/2015-1 and \#307228\/2018-5 from the Brazilian National Council for Scientific and Technological Development (CNPq), grant \#2013\/07559-3 from São Paulo Reseach Foundation (FAPESP), and the Coordination for the Improvement of Higher Education Personnel (CAPES).
