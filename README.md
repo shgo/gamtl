@@ -7,12 +7,12 @@
 
 Title: **Group LASSO with Asymmetric Structure Estimation for Multi-Task Learning**
 
-Authors: *Saullo Oliveira, André Gonçalves, Fernando Von Zuben**.
+Authors: *Saullo Oliveira, André Gonçalves, Fernando Von Zuben*.
 
 Abstract:
     Group LASSO is a widely used regularization that imposes sparsity considering groups of covariates. When used in Multi-Task Learning (MTL) formulations, it makes an underlying assumption that if one group of covariates is not relevant for one or a few tasks, it is also not relevant for all tasks, thus implicitly assuming that all tasks are related.
     This implication can easily lead to negative transfer if this assumption does not hold for all tasks.
-    Since for most practical applications we hardly know a priori how the tasks are related, several approaches have been conceived in the literature to ($i$) properly capture the transference structure, ($ii$) improve interpretability of the tasks interplay, and ($iii$) penalize potential negative transfer.
+    Since for most practical applications we hardly know a priori how the tasks are related, several approaches have been conceived in the literature to (*i*) properly capture the transference structure, (*ii*) improve interpretability of the tasks interplay, and (*iii*) penalize potential negative transfer.
     Recently, the automatic estimation of asymmetric structures inside the learning process was capable of effectively avoiding negative transfer.
     Our proposal is the first attempt in the literature to conceive a Group LASSO with asymmetric transference formulation, looking for the best of both worlds in a  framework that admits the overlap of groups. 
     The resulting optimization problem is solved by an alternating procedure with fast methods. 
