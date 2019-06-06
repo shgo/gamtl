@@ -1,1 +1,12 @@
 language: python
+
+addons:
+  apt:
+    packages: &common_packages
+      - gfortran
+      - libatlas-dev
+      - libatlas-base-dev
+      - openblas
+
+python:
+  - 3.6
