@@ -10,4 +10,4 @@ addons:
       - liblapack-dev
 python:
   - 3.6
-script: ./test_environment.py
+script: python test_environment.py
