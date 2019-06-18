@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #pylint:disable=invalid-name
 """
-Implementação do método AMTL.
+AMTL method.
 """
 import time
 import numpy as np
@@ -21,7 +21,7 @@ MAX_ITER_B = 25
 MAX_ITER = 700
 
 class MyAMTLBase(Method):
-    """ Minha implementação do AMTL. """
+    """ AMTL. """
     def __init__(self, name="MyAMTL", label='amtl', normalize=False, bias=False,
                  mu=1, lamb=1, glm="Gaussian", consider_loss=True,
                  consider_B_restriction=True):
@@ -147,7 +147,7 @@ class MyAMTLBase(Method):
 
     def set_params(self, mu=0.01, lamb=0.1):
         """
-        Configura os parâmetros de execução do metodo.
+        Sets method params.
         Args:
             mu (float): mu parameter.
                 Default: 0.01.
@@ -161,7 +161,7 @@ class MyAMTLBase(Method):
 
     def get_params(self):
         """
-        Retorna os parâmetros de execução do metodo.
+        Gets method params.
         Return
             params (dict):
         """
@@ -208,7 +208,7 @@ class MyAMTLBase(Method):
             return termo_1
 
         def termo_2(w, t):
-            """ diferença de w_t pra sua projeção. """
+            """ w_t and its projection. """
             termo_2 = 0
             if self.lamb > 0:
                 proj = np.zeros(len(w))
@@ -237,16 +237,6 @@ class Opt_Wt:
         #a_s
         self.a_s = self.W - np.dot(self.W, B)
         self.a_s[:, self.t] = 0.
-        '''
-        self.a_s = np.zeros(self.W.shape)
-        for s in range(self.W.shape[1]):
-            if s == self.t:
-                continue
-            Bs = self.B[:, s].copy()
-            Bs[t] = 0.
-            Bs[s] = 0.
-            self.a_s[:, s] = self.W[:, s] - np.dot(self.W, Bs)
-        '''
 
     def fit(self, X, y, w=None, max_iter=MAX_ITER_W):
         """TODO: Docstring for fit.
@@ -266,20 +256,10 @@ class Opt_Wt:
 
     def cost(self, X, y, w):
         """ Computes cost function. """
-        #for i in range(self.B.shape[1]):
-        #    assert self.B[i, i] == 0.
         res_sum = 0
         copia = self.W.copy()
         copia[:, self.t] = w
         res_sum = (((copia - np.dot(copia, self.B)) ** 2).sum(axis=0)).sum()
-        res_sum2 = 0
-        '''
-        W = self.W.copy()
-        W[:, self.t] = w
-        for s, ws in enumerate(W.T):
-            temp = np.linalg.norm(ws - np.dot(W, self.B[:, s])) ** 2
-            res_sum2 += temp
-        '''
         if self.consider_loss:
             f = (1 + self.mu * abs(self.B[self.t, :]).sum()) * self.cost_glm(X, y, w) \
                 + (self.lamb / 2) * res_sum
@@ -297,7 +277,6 @@ class Opt_Wt:
         res_sum2 = w - np.dot(copy, self.B[:, self.t])
         res_sum2 -= (self.B[self.t, :].reshape(1, self.W.shape[1]) * \
                 (self.a_s - (self.B[self.t, :].reshape(1, self.W.shape[1]) * w.reshape(len(w), 1)))).sum(axis=1)
-        #res_sum = (self.B[self.t, :].reshape(1, self.W.shape[1]) * (w.reshape(len(w), 1) - self.a_s)).sum(axis=1)
         res_sum = w - np.dot(self.W, self.B[:, self.t])
         for s in range(self.W.shape[1]):
             if s == self.t:
@@ -332,7 +311,6 @@ class Opt_Wt:
         f = 0
         if self.glm == 'Gaussian':
             tt = np.dot(X, w) - y
-            # nao é loglik mesmo, é só mse
             loglik = 0.5 * np.linalg.norm(tt) ** 2.0
         elif self.glm == 'Poisson':
             xb = np.maximum(np.minimum(np.dot(X, w), 100), -100)#avoid overflow

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #pylint: disable=invalid-name,too-many-locals,missing-docstring
 """
-Módulo que gera gráficos e tabelas dos experimentos salvos.
+Graphics and tables. This is a mess and I do not recommend you to go through it.
 """
 import numpy as np
 import pandas as pd

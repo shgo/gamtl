@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 #pylint:disable=invalid-name,too-many-arguments
 """
-Este módulo representa as bases de dados no formato adequado para
-design.Experiment. As assinaturas dos métodos externos devem se manter
-idênticas.
+This module implements Datasets defined on design.py.
 """
 import numpy as np
 from codes.design import ArtificialDataset
@@ -61,7 +59,6 @@ class ArtGAMTLRegression(ArtificialDataset):
         split = 0.7
         n = 50
         m = 1000
-        # [np.random.randint(base, base*1.1) for i in range(T)]
         W = np.zeros((n, T))
         groups = np.array([[0, 25], [25, 50], [np.sqrt(25), np.sqrt(25)]])
         super().__init__('Art1Regression', m, n, T, split, W=W, groups=groups)
@@ -86,12 +83,12 @@ class ArtGAMTLRegression(ArtificialDataset):
         """
         grupo_1 = range(int(self.groups[0, 0]), int(self.groups[1, 0]))
         grupo_2 = range(int(self.groups[0, 1]), int(self.groups[1, 1]))
-        # tarefas seed
+        # seed tasks
         self.W[grupo_1, 0] = np.random.normal(0, self.var_W, len(grupo_1))
         self.W[grupo_1, 1] = np.random.normal(0, self.var_W, len(grupo_1))
         self.W[grupo_2, 2] = np.random.normal(0, self.var_W, len(grupo_2))
         self.W[grupo_2, 3] = np.random.normal(0, self.var_W, len(grupo_2))
-        # gera relações
+        # relationship among tasks
         self.Bs = [None, None]
         self.Bs[0] = np.zeros((self.T, self.T))
         self.Bs[1] = np.zeros((self.T, self.T))
@@ -101,21 +98,20 @@ class ArtGAMTLRegression(ArtificialDataset):
             self.Bs[1][2:4:, t] = abs(np.random.randn(2) * self.var_B)
             self.Bs[1][2:4:, t] = abs(np.random.randn(2) * self.var_B)
         self.Bs = np.array(self.Bs)
-        # tarefas derivadas
+        # derived tasks
         for t in range(4, self.T):
             for ind_g in range(2):
                 ind_grupo = range(
                     int(self.groups[ind_g, 0]), int(self.groups[ind_g, 1]))
                 self.W[ind_grupo, t] = np.dot(self.W[ind_grupo, :],
                                               self.Bs[ind_g, :, t])
-        # gerando dados
+        # data generation
         X = [[] for i in range(self.T)]
         y = [[] for i in range(self.T)]
         for t in range(self.T):
             temp_X = np.random.randn(self.m[t], self.n)
             X[t] = temp_X
         self.X = X
-
         for t in range(self.T):
             temp_y = np.dot(X[t], self.W[:, t])
             if t >= 4:
@@ -130,8 +126,8 @@ class ArtGAMTLRegression(ArtificialDataset):
 
     def get_params(self):
         """
-        Retorna os valores que o objeto possui para os parâmetros de geração
-        dos dados no momento.
+        Gets dataset params.
+
         Returns:
             params (dict): keys:
                 'm' - #rows design matrix
@@ -142,6 +138,7 @@ class ArtGAMTLRegression(ArtificialDataset):
         res = super().get_params()
         res['noise_diff'] = self.noise_diff
         return res
+
 
     def set_params(self, m, n, T, split, noise_diff):
         """ Sets parameters of dataset.
