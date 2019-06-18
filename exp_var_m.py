@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Função que executa experimento variando parametros. Seu nome é prefixo no nome
-dos scripts que a usam.
+Experiment helper function.
 """
 from codes.experiments import ExperimentVarParam
 from codes.hyper_params import CrossValidation
+
+
 def exp_base(dataset, filename, vals, strategies, hp_metric, hp_bb, metrics,
              task_metrics, runs, n_jobs=-1):
     """

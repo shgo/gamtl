@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Metrics module.
+module that contains metrics for overall performace.
 """
 import numpy as np
 
-## metrics for overall performace
 def nmse(y_true, y_pred):
     """ Normalized mean squared error for MTL.
 

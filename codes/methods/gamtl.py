@@ -174,10 +174,6 @@ class GroupAMTLBase(Method):
             self.W = W
         if Bs is None:
             self.Bs = np.zeros((n_groups, n_tasks, n_tasks))
-            #self.Bs = np.random.rand(n_groups, n_tasks, n_tasks) * 30
-            #diag_zero = np.ones((n_tasks, n_tasks)) - np.eye(n_tasks)
-            #for i in np.arange(n_groups):
-            #    self.Bs[i, :, :] = np.multiply(self.Bs[i, :, :], diag_zero)
         else:
             assert Bs.shape == (n_groups, n_tasks, n_tasks)
             for i in range(len(Bs)):
@@ -193,21 +189,16 @@ class GroupAMTLBase(Method):
             old_W = self.W.copy()
             if not DEBUG_G:
                 self.W, current_losses = self._train_W(X, y, max_iter_wt)
-            #self.cost_hist[i, 0] = self._cost_function(X, y)
-
             # B
             old_Bs = self.Bs.copy()
             if not DEBUG_W:
                 self.Bs = self._train_Bs(current_losses, max_iter_bgt)
-            #self.cost_hist[i, 1] = self._cost_function(X, y)
-
             # Convergence criteria
             delta_W = np.linalg.norm(old_W - self.W)
             delta_Bs = np.mean([np.linalg.norm(old_Bs[i, :, :] - self.Bs[i, :, :]) \
                         for i in np.arange(self.Bs.shape[0])])
             if VERBOSE:
                 print('{}\t{}'.format(delta_W, delta_Bs))
-                #print('{}\t{}'.format(self.cost_hist[i, 0], self.cost_hist[i, 1]))
             if delta_W < TOLERANCE_W and delta_Bs < TOLERANCE_Bs:
                 if VERBOSE:
                     print('Convergence criterion has been met!')
@@ -234,7 +225,8 @@ class GroupAMTLBase(Method):
 
     def get_params(self):
         """
-        Retorna os parâmetros de execução do metodo.
+        Gets method params.
+
         Return
             params (dict):
         """
@@ -252,8 +244,8 @@ class GroupAMTLBase(Method):
     def _cost_function(self, X, y):
         """Cost function
 
-        :param X: 
-        :param y: 
+        :param X:
+        :param y:
         :returns: cost
         :rtype: float
         """
@@ -261,7 +253,6 @@ class GroupAMTLBase(Method):
             f = 0
             if self.glm == 'Gaussian':
                 tt = np.dot(A, w) - b
-                # nao é loglik mesmo, é só mse
                 loglik = 0.5 * np.power(np.linalg.norm(tt), 2.0)
             elif self.glm == 'Poisson':
                 xb = np.maximum(np.minimum(np.dot(A, w), 100),
@@ -273,7 +264,6 @@ class GroupAMTLBase(Method):
                     loglik += scipy.stats.gamma.logpdf(
                         b[i], 1.0 / np.dot(A[i, :], w))
             elif self.glm == 'Binomial':
-                #Xbeta = np.dot(A, w)
                 xb = np.maximum(np.minimum(np.dot(A, w), 100),
                                 -100)  #avoid overflow
                 loglik = -1 * np.sum(((b * xb) - np.log(1 + np.exp(xb))))
@@ -296,7 +286,7 @@ class GroupAMTLBase(Method):
             return termo_1
 
         def termo_2(w, t):
-            """diferença de w_t pra sua projeção.
+            """w_t and its projection.
             """
             termo_2 = 0
             if self.lambda_2 > 0:
@@ -392,7 +382,6 @@ class GroupAMTLBase(Method):
             W_g[group] = self.W[group].copy()
             Wtilde = self._temp_w_tilde(ind_g)
             for t in np.arange(n_tasks):
-                # prepara os dados
                 selector = np.array([i for i in np.arange(n_tasks) if i != t])
                 W_bar = W_g[:, selector].copy()
                 if self.consider_loss:
@@ -430,7 +419,6 @@ class GroupAMTLBase(Method):
                 if self.consider_loss:
                     Bs[ind_g][selector,
                               t] = coeff / current_losses[selector, t]
-                    #Bs[ind_g][selector, t] = np.divide(coeff, current_losses[selector, t])
                 else:
                     Bs[ind_g][selector, t] = coeff
         return Bs
@@ -575,20 +563,13 @@ class Optimize_Wt:
                 else:
                     f = custo + (self.lambda_1 * self.norm_b)
                 return f
-            else:
-                return custo
-
+            return custo
         def termo_2(w):
-            """diferença de w_t pra sua projeção.
-            assume que não há sobreposição nos grupos!!!
-            """
             termo_2 = 0
             if self.lambda_2 > 0:
                 termo_2 = (self.lambda_2 / 2) * ((w - self.proj)**2).sum()
             return termo_2
-
         def termo_3(w):
-            """diferença de cada w_s(s!=t) para a respectiva projeção."""
             termo_3 = 0
             if self.lambda_2 > 0:
                 proj_w_s = w.reshape(len(w), 1) * self.Bts
@@ -662,7 +643,6 @@ class Optimize_Wt:
             if self.lambda_2 > 0:
                 termo_3 = self.lambda_2 * (self.Bts * (self.Bts * w.reshape(
                     len(w), 1) - self.W_s_tilde)).sum(axis=1)
-                #termo_3 = self.lambda_2 * termo_3
             return termo_3
 
         g1 = grad_termo_1(w)

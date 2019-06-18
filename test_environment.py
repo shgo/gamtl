@@ -2,8 +2,7 @@
 # -*- coding: utf-8 -*-
 # pylint:disable=invalid-name,missing-docstring
 """
-SCRIPT que executa experimento variando m (qtd de amostras) na base artificial
-Art1.
+Tests environment.
 """
 import numpy as np
 from sklearn.metrics import mean_squared_error as mse
@@ -63,28 +62,22 @@ def myamtl2_params():
 
 if __name__ == "__main__":
     strategies = Strategies()
-    #################
-    # METHODS GROUP #
-    #################
+    # METHODS GROUP
     groups = np.array([[0, 25],
                        [25, 50],
                        [np.sqrt(25), np.sqrt(25)]])
     init_params = {'name': 'GroupLasso',
                    'label': 'glasso_',
-                   # 'normalize': True,
                    'groups': groups}
     strategies.add(GroupLassoRegression, init_params, glasso_params())
 
-    # GAMTL #
+    # GAMTL
     init_params = {'name': 'GroupAMTLr',
                    'label': 'gamtlr',
-                   # 'normalize': True,
                    'groups': groups}
     strategies.add(GroupAMTL, init_params, gamtl_params())
 
-    ############################
-    # METHODS WITHOUT GROUP    #
-    ############################
+    # METHODS WITHOUT GROUP
     strategies.add(LassoRegression, {}, lasso_params())
     groups = np.array([[0],
                        [50],
