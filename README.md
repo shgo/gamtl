@@ -27,6 +27,23 @@ Date: 06/2019
 
 License: GNU General Public License v3.0
 
+## How to Cite ##
+
+```
+@inproceedings{ijcai2019-444,
+  title     = {Group LASSO with Asymmetric Structure Estimation for Multi-Task Learning},
+  author    = {Oliveira, Saullo H. G. and Gonçalves, André  R. and Von Zuben, Fernando J.},
+  booktitle = {Proceedings of the Twenty-Eighth International Joint Conference on
+               Artificial Intelligence, {IJCAI-19}},
+  publisher = {International Joint Conferences on Artificial Intelligence Organization},             
+  pages     = {3202--3208},
+  year      = {2019},
+  month     = {7},
+  doi       = {10.24963/ijcai.2019/444},
+  url       = {https://doi.org/10.24963/ijcai.2019/444},
+}
+```
+
 ## Acknowledgements
 
 We acknowledge the grants \#141881\/2015-1 and \#307228\/2018-5 from the Brazilian National Council for Scientific and Technological Development (CNPq), grant \#2013\/07559-3 from São Paulo Reseach Foundation (FAPESP), and the Coordination for the Improvement of Higher Education Personnel (CAPES).
