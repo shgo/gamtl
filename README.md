@@ -30,7 +30,7 @@ License: GNU General Public License v3.0
 ## How to Cite ##
 
 ```
-@inproceedings{ijcai2019-444,
+@inproceedings{Oliveira2019,
   title     = {Group LASSO with Asymmetric Structure Estimation for Multi-Task Learning},
   author    = {Oliveira, Saullo H. G. and Gonçalves, André  R. and Von Zuben, Fernando J.},
   booktitle = {Proceedings of the Twenty-Eighth International Joint Conference on
