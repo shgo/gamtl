@@ -3,7 +3,9 @@
 
 # GAMTL
 
-**Paper accepted for the 28th International Joint Conference on Artificial Intelligence - IJCAI 2019**
+**Main track of the 28th International Joint Conference on Artificial Intelligence - IJCAI 2019**
+
+[PDF Open Access](https://www.ijcai.org/proceedings/2019/444)
 
 Title: **Group LASSO with Asymmetric Structure Estimation for Multi-Task Learning**
 
