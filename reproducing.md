@@ -5,6 +5,7 @@ Also, you will need to install the following libraries:
       - gfortran
       - libblas-dev
       - liblapack-dev
+      - suitesparse
 
 # Getting the code
 To get the latest release of GAMTL run:
@@ -16,7 +17,7 @@ cd gamtl/
 # Preparing the environment
 Create the python environment:
 ```
-python3.6 -m venv gamtl_env
+python -m venv gamtl_env
 ```
 Using an isolated environment has the advantage of not messing with your python OS installation.
 When it is done, activate the environment with:
