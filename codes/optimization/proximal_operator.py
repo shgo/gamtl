@@ -21,7 +21,7 @@ def proximal_group(w, ind, thres):
     # Group Lasso penalization
     for i in range(0, ngroups):
         temp = ind[:, i]
-        ids_group = np.arange(temp[0], temp[1], dtype=np.int)
+        ids_group = np.arange(temp[0], temp[1], dtype=int)
         twoNorm = np.sqrt(np.dot(w_new[ids_group], w_new[ids_group]))
         if twoNorm > thres * temp[2]:
             fac = (twoNorm - (thres * temp[2])) / float(twoNorm)
@@ -90,7 +90,7 @@ def compute_largest_group_norm(v,ind,dim,ntasks):
     for t in range(ntasks):
         for i in range(ngroups):
             temp = ind[:,i]
-            ids = np.arange(temp[0],temp[1], dtype=np.int)
+            ids = np.arange(temp[0],temp[1], dtype=int)
             twoNorm = np.linalg.norm(w2D[ids,t]) / float( temp[2] )
             if twoNorm > lambda2_max:
                 lambda2_max = twoNorm
@@ -122,7 +122,7 @@ def proximal_composition( v, ind, dim, ntasks ):
     for t in range(ntasks):
         for i in range(ngroups):
             temp = ind[:,i+1] #.astype(int)
-            ids_group = np.arange(temp[0],temp[1], dtype=np.int)
+            ids_group = np.arange(temp[0],temp[1], dtype=int)
             twoNorm = np.sqrt( np.dot(w_new[ids_group,t],w_new[ids_group,t]) )
 
             if twoNorm > temp[2]:
@@ -160,7 +160,7 @@ def proximal_average(w, ind, dim, ntasks):
     for t in range(ntasks): # applies group lasso for each tas independently
         for i in range(ngroups):
             temp = ind[:,i+1] # +1 because there was a -1 column added as the first column
-            ids_group = np.arange(temp[0],temp[1], dtype=np.int)
+            ids_group = np.arange(temp[0],temp[1], dtype=int)
             twoNorm = np.sqrt( np.dot(w2D[ids_group,t],w2D[ids_group,t]) )
 
             # print np.linalg.norm(w2D[ids_group,t])

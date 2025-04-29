@@ -897,8 +897,8 @@ class ExperimentMTL:
             ret['f'].append(ret_run['f'])
             ret['time'].append(ret_run['time'])
             ret['resul'].append(ret_run['resul'])
-            metrics = metrics.append(df_metric)
-            task_metrics = task_metrics.append(df_task_metric)
+            metrics = pd.concat([metrics, df_metric])
+            task_metrics = pd.concat([task_metrics, df_task_metric])
         met_time = time.time() - start_time
         print('Metric evaluation took {:.3f} seconds...'.format(met_time))
         return ret, method_name, metrics, task_metrics
@@ -969,7 +969,7 @@ class ExperimentMTL:
             f = np.array([f])
         f_cor = np.array([])
         if len(f) < 100:
-            f_cor = np.lib.pad(
+            f_cor = np.pad(
                 f.flatten(), (0, 100 - len(f)), 'constant', constant_values=0)
         else:
             f_cor = f.flatten()[:100]
@@ -1005,7 +1005,7 @@ class ExperimentMTL:
             res['metric'] = metric['name']
             res['tr'] = metric['func'](ytr, ytr_pred)
             res['te'] = metric['func'](yte, yte_pred)
-            df_ret = df_ret.append(res, ignore_index=True)
+            df_ret = pd.concat([df_ret, res], ignore_index=True)
         return df_ret
 
     def __task_metrics_evaluation(self, method, dataset):
@@ -1037,7 +1037,7 @@ class ExperimentMTL:
                 ret['task'] = t
                 ret['tr'] = metric['func'](ytr[t], ytr_pred[t])
                 ret['te'] = metric['func'](yte[t], yte_pred[t])
-                df_ret = df_ret.append(ret, ignore_index=True)
+                df_ret = pd.concat([df_ret, ret], ignore_index=True)
         return df_ret
 
     def save(self):

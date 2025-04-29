@@ -97,13 +97,13 @@ class ExperimentVarParam(ExperimentMTL):
                 metrics['dataset_param'] = dataset_param
                 task_metrics['dataset_param'] = dataset_param
                 self.resul['objs'][pos][method_name] = res
-                self.resul['metrics'] = self.resul['metrics'].append(metrics)
-                self.resul['task_metrics'] = \
-                    self.resul['task_metrics'].append(task_metrics)
+                self.resul['metrics'] = pd.concat([self.resul['metrics'], metrics])
+                self.resul['task_metrics'] = pd.concat([self.resul['task_metrics'], task_metrics])
                 self.done[pos].append(strategy.name)
                 print('done 1')
                 self.save()
         print('The End')
+        return self.resul
 
     def delete(self, method_name):
         """Removes a method from the results, being able to run it again.

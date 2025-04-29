@@ -117,9 +117,9 @@ class CrossValidation(HyperParameterization):
         """
         print('\t CROSS-VALIDATION {}'.format(method_ref.__name__))
         if self.bb:
-            best_cost = -np.Inf
+            best_cost = -np.inf
         else:
-            best_cost = np.Inf
+            best_cost = np.inf
         df_res = pd.DataFrame()
         best_params = None
         results = list()
@@ -130,7 +130,7 @@ class CrossValidation(HyperParameterization):
             results = Parallel(n_jobs=n_jobs)(delayed(self._fit_param)(method_ref,
                                               init_params, param) for param in params)
         for result, param in results:
-            df_res = df_res.append(result, ignore_index=True)
+            df_res = pd.concat([df_res, result], ignore_index=True)
             f_tr = result['tr']
             f_val = result['val']
             print('\t\t metric tr: {:.3f} metric val: {:.3f}'.format(f_tr, f_val))
@@ -279,9 +279,9 @@ class KFold(HyperParameterization):
         """
         print('\t K-FOLD CROSS-VALIDATION {}'.format(method_ref.__name__))
         if self.bb:
-            best_cost = -np.Inf
+            best_cost = -np.inf
         else:
-            best_cost = np.Inf
+            best_cost = np.inf
         df_res = pd.DataFrame()
         best_params = None
         results = list()
