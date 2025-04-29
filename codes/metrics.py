@@ -4,6 +4,7 @@
 module that contains metrics for overall performace.
 """
 import numpy as np
+from sklearn.metrics import make_scorer
 
 def nmse(y_true, y_pred):
     """ Normalized mean squared error for MTL.
@@ -55,3 +56,6 @@ def cc(y_true, y_pred):
     for t, y_true_t in enumerate(y_true):
         acum[t] = np.corrcoef(y_true_t, y_pred[t])[0, 1]
     return acum.mean()
+
+nmse_scorer = make_scorer(nmse, greater_is_better=False)
+macc_scorer = make_scorer(macc, greater_is_better=True)
