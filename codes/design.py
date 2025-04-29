@@ -10,6 +10,7 @@ import pickle as pkl
 import time
 import warnings
 from abc import ABCMeta, abstractmethod
+from sklearn.utils.validation import check_array, check_is_fitted
 
 import numpy as np
 import pandas as pd
@@ -453,8 +454,10 @@ class MethodRegression(Method):
         Args:
         :param X: input data
         """
-        assert isinstance(X, list)
-        assert len(X) == self.W.shape[1]
+        check_is_fitted(self)
+        assert isinstance(X, list) # TODO: verificar se é necessário após a validação do sklearn
+        assert len(X) == self.W.shape[1] # TODO: verificar se é necessário após a validação do sklearn
+        X = check_array(X)
         X = self.add_bias(X)
         X = self.normalize_in(X)
         y = []

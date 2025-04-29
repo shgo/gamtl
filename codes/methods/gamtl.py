@@ -10,8 +10,7 @@ import numpy as np
 import scipy.optimize
 import scipy.stats
 from sklearn.linear_model import Lasso
-from sklearn.base import BaseEstimator, RegressorMixin
-from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
+from sklearn.utils.validation import check_X_y
 
 from codes.design import Method
 from codes.optimization.admm import ADMM, ADMM_Lasso
@@ -160,12 +159,14 @@ class GroupAMTLBase(Method):
         assert max_iter > 0
         assert max_iter_wt > 0
         assert max_iter_bgt > 0
-        assert len(X) == len(y)
+        assert len(X) == len(y) # TODO: verificar se é necessário após a validação do sklearn
         for t, Xt in enumerate(X):
             assert Xt.shape[0] == y[t].shape[0]
             assert Xt.shape[1] == X[0].shape[1]
-        X = self.normalize_data(X)
+        X = self.normalize_data(X) #TODO: mover para fora, utilizar o normalize do sklearn
         X = self.add_bias(X)
+        # Input validation
+        X, y = check_X_y(X, y, multi_output=True)
         n_tasks = len(X)
         n_features = X[0].shape[1]
         n_groups = self.groups.shape[1]
@@ -205,7 +206,8 @@ class GroupAMTLBase(Method):
                 if VERBOSE:
                     print('Convergence criterion has been met!')
                 break
-        return (self.W, self.cost_hist[:, 1], time.time() - start)
+        self.coef_ = [self.W, self.Bs]
+        return (self.W, self.cost_hist[:, 1], time.time() - start) # TODO: return self
 
     def set_params(self, lambda_1, lambda_2, lambda_3):
         """
