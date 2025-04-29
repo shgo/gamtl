@@ -62,7 +62,7 @@ class ArtGAMTLRegression(ArtificialDataset):
         W = np.zeros((n, T))
         groups = np.array([[0, 25], [25, 50], [np.sqrt(25), np.sqrt(25)]])
         super().__init__('Art1Regression', m, n, T, split, W=W, groups=groups)
-        self.noise = np.Inf
+        self.noise = np.inf
         self.Bs = np.zeros((2, T, T))
         self.var_W = 1
         self.var_B = 1
