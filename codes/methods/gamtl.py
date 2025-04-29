@@ -10,6 +10,8 @@ import numpy as np
 import scipy.optimize
 import scipy.stats
 from sklearn.linear_model import Lasso
+from sklearn.base import BaseEstimator, RegressorMixin
+from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
 
 from codes.design import Method
 from codes.optimization.admm import ADMM, ADMM_Lasso
